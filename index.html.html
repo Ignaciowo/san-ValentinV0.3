@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pregunta San Valentín - v0.3</title>
+  <style>
+    /* Estilos globales */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image: url('https://thumbs.dreamstime.com/z/gatos-lindo-patr%C3%B3n-sin-costuras-con-gatitos-bonitos-ideal-para-tela-de-beb%C3%A9-textil-fondo-pantalla-ni%C3%B1os-dibujos-animados-vector-207677928.jpg?ct=jpeg');
+      background-size: cover; /* Ajusta la imagen al tamaño de la pantalla */
+      background-position: center; /* Centra la imagen */
+      background-repeat: no-repeat; /* Evita que la imagen se repita */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #container {
+      text-align: center;
+      position: relative;
+      z-index: 20; /* Asegura que el texto esté por encima de todo */
+      margin-top: 50px;
+      background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente para mejorar la legibilidad */
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    h1, .question, .big-text, .message p {
+      color: #D72E6E;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+      animation: fadeIn 1s ease-in-out; /* Animación de entrada */
+    }
+
+    h1 {
+      font-size: 50px;
+      margin-bottom: 30px;
+      transition: opacity 1s ease-out;
+    }
+
+    button {
+      padding: 25px 50px;
+      font-size: 30px;
+      cursor: pointer;
+      border-radius: 30px;
+      border: none;
+      margin: 20px;
+      transition: all 0.3s ease;
+      color: white;
+      animation: bounce 0.5s infinite alternate; /* Animación de botones */
+    }
+
+    .oda-btn { background-color: #FF79C6; }
+    .yes-btn { background-color: #4CAF50; }
+    .no-btn { background-color: #F66563; }
+
+    .question {
+      font-size: 30px;
+      opacity: 1;
+      transition: opacity 1s ease-out;
+      margin-top: 40px;
+    }
+
+    .gif-container {
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translate(-50%, -10%);
+      z-index: 30; /* Asegura que los GIFs estén por encima del fondo semitransparente */
+      display: none;
+      animation: popIn 0.5s ease-in-out; /* Animación de entrada para GIFs */
+    }
+
+    .gif-container img {
+      width: 200px;
+      height: 200px;
+    }
+
+    /* Fondo con imagen para el mensaje final */
+    .confetti-background {
+      background-image: url('https://i.imgur.com/k2Wtdq3.jpeg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      text-align: center;
+      padding: 20px;
+      color: white;
+      font-size: 40px;
+      font-weight: bold;
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px;
+      height: 500px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 40; /* Asegura que la imagen final esté por encima del GIF */
+      display: none;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      animation: fadeIn 1s ease-in-out; /* Animación de entrada */
+    }
+
+    /* Animaciones */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-10px); }
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0); }
+      to { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="container">
+    <h1 id="intro-text">Ooodaaa miamoool</h1>
+    <button class="oda-btn" id="oda-btn">ODA</button>
+  </div>
+
+  <!-- Contenedores de GIFs -->
+  <div id="gif-1-yes" class="gif-container">
+    <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExcnFiem1wN3ltejcyY3dpY2RmN3drb3BqMmVwbnFidHlzcjU2emw5ZSZlcD12MV9pbnRlcm5albF9naWZfYnlfaWQmY3Q9Zw/Tu1p1x4QwnZAc/giphy.gif" alt="Gatito feliz">
+  </div>
+
+  <div id="gif-1-no" class="gif-container">
+    <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExNGwwODJ1d2lwY2QyYzdxdjZsb2FuaHY5YW80ZHJnMGo4ZzJzYWhjcSZlcD12MV9pbnRlcm5albF9naWZfYnlfaWQmY3Q9Zw/YmVNzDnboB0RQEpmLr/giphy.gif" alt="Gatito enojado">
+  </div>
+
+  <div id="gif-2-yes" class="gif-container">
+    <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHY0b3lnaTRlcHB0Ynhxa3M3ejJ5YmRseTltN3UyZm9aY3BiMDg3cCZlcD12MV9pbnRlcm5albF9naWZfYnlfaWQmY3Q9Zw/41V6pgW5Pb1WU/giphy.gif" alt="Gatito bailando">
+  </div>
+
+  <div id="gif-2-no" class="gif-container">
+    <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNXdpcXFxdWVraXpmbGVvcDYzajdmN3duOWowdzE4YnQ2NmpjczY4dSZlcD12MV9pbnRlcm5albF9naWZfYnlfaWQmY3Q9Zw/EHWxaNuhrK3tIscXq2/giphy.gif" alt="Gatito triste">
+  </div>
+
+  <div id="gif-3-yes" class="gif-container">
+    <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" alt="Gatito saltando feliz">
+  </div>
+
+  <div id="gif-3-no" class="gif-container">
+    <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" alt="Gatito gruñón">
+  </div>
+
+  <!-- Aquí va el GIF de gatito feliz para la última pregunta -->
+  <div id="gif-final" class="gif-container">
+    <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGtrdmp5cDJqaGdqcXU5NndkNzBtaTEyNzJxN2R4Y2JsemYxMXh6ayZlcD12MV9pbnRlcm5albF9naWZfYnlfaWQmY3Q9Zw/btQa2qG4wpQNq/giphy.gif" alt="Gatito feliz San Valentín">
+  </div>
+
+  <!-- Efecto de confeti -->
+  <canvas id="confetti-canvas" style="position: absolute; top: 0; left: 0; z-index: 50; pointer-events: none;"></canvas>
+
+  <script>
+    // Variables globales
+    let step = 0;
+    const questions = [
+      "¿Tomaste awita hoy? 💧",
+      "¿Ya comiste? 🍕",
+      "¿Si yo fuera un gusanito con lentes y que le gusta jugar jueguitos en la compu, me seguirías amando? 🐛👓🎮",
+      "¿Soñaste conmigo? o nada nadita? 🌙💭"
+    ];
+
+    // Función para iniciar el juego
+    function init() {
+      document.getElementById('oda-btn').addEventListener('click', startQuestions);
+      // Permitir interacción con el teclado
+      document.addEventListener('keydown', handleKeyPress);
+    }
+
+    // Función para manejar la interacción con el teclado
+    function handleKeyPress(event) {
+      if (event.key === 's' || event.key === 'S') {
+        handleAnswer(true);
+      } else if (event.key === 'n' || event.key === 'N') {
+        handleAnswer(false);
+      }
+    }
+
+    // Función para iniciar las preguntas
+    function startQuestions() {
+      document.getElementById('oda-btn').style.display = 'none'; 
+      document.getElementById('intro-text').style.opacity = 0; // Ocultar el texto "Ooodaaa miamoool"
+      step = 1;
+      displayQuestion();
+    }
+
+    // Función para mostrar las preguntas y botones
+    function displayQuestion() {
+      const currentQuestion = questions[step - 1];
+      const questionDiv = createQuestionElement(currentQuestion);
+      document.getElementById('container').appendChild(questionDiv);
+      
+      setTimeout(() => {
+        createAnswerButtons();
+      }, 1000); 
+    }
+
+    // Función para crear el elemento de la pregunta
+    function createQuestionElement(question) {
+      const questionDiv = document.createElement('div');
+      questionDiv.classList.add('question');
+      questionDiv.innerHTML = question;
+      return questionDiv;
+    }
+
+    // Función para crear los botones de respuesta
+    function createAnswerButtons() {
+      const yesBtn = createButton("Sí", 'yes-btn');
+      const noBtn = createButton("No", 'no-btn');
+
+      yesBtn.addEventListener('click', () => handleAnswer(true));
+      noBtn.addEventListener('click', () => handleAnswer(false));
+
+      document.getElementById('container').appendChild(yesBtn);
+      document.getElementById('container').appendChild(noBtn);
+    }
+
+    // Función para crear un botón genérico
+    function createButton(text, className) {
+      const button = document.createElement('button');
+      button.textContent = text;
+      button.classList.add(className);
+      return button;
+    }
+
+    // Función para manejar la respuesta (Sí o No)
+    function handleAnswer(isYes) {
+      const questionDiv = document.querySelector('.question');
+      questionDiv.style.opacity = 0;
+
+      const buttons = document.querySelectorAll('button');
+      buttons.forEach(button => button.style.opacity = 0);
+
+      // Ocultar todos los GIFs anteriores
+      for (let i = 1; i < step; i++) {
+        const gifYesId = `gif-${i}-yes`;
+        const gifNoId = `gif-${i}-no`;
+        document.getElementById(gifYesId).style.display = 'none';
+        document.getElementById(gifNoId).style.display = 'none';
+      }
+
+      const gifYesId = `gif-${step}-yes`;
+      const gifNoId = `gif-${step}-no`;
+
+      if (isYes) {
+        document.getElementById(gifYesId).style.display = 'block';
+        document.getElementById(gifNoId).style.display = 'none';
+      } else {
+        document.getElementById(gifNoId).style.display = 'block';
+        document.getElementById(gifYesId).style.display = 'none';
+      }
+
+      setTimeout(() => {
+        questionDiv.remove();
+        buttons.forEach(button => button.remove());
+        step++;
+
+        if (step < 4) {
+          displayQuestion();
+        } else {
+          showFinalMessage();
+        }
+      }, 1000);
+    }
+
+    function showFinalMessage() {
+  const finalText = [
+    "miamol", "quería preguntarte", "lo siguiente", "lo que te diré a continuación", 
+    "es lo que seguirá", "después", "de estas palabras"
+  ];
+
+  let textDiv = document.createElement('div');
+  textDiv.classList.add('message');
+  textDiv.style.maxWidth = "90%";
+  textDiv.style.margin = "0 auto";
+  textDiv.style.overflow = "visible";
+  textDiv.style.wordWrap = "break-word";
+
+  document.getElementById('container').appendChild(textDiv);
+
+  // Función para mostrar los textos uno por uno
+  function showText(index) {
+    if (index < finalText.length) {
+      let textElement = document.createElement('p');
+      textElement.textContent = finalText[index];
+      textElement.style.opacity = 0;
+      textElement.style.fontSize = "25px";
+      textDiv.appendChild(textElement);
+
+      // Animación de entrada
+      setTimeout(() => {
+        textElement.style.opacity = 1;
+      }, 100); // Pequeño retraso para asegurar que el elemento esté en el DOM
+
+      // Llamar a la función recursivamente para el siguiente texto
+      setTimeout(() => {
+        showText(index + 1);
+      }, 4000); // Retraso entre cada mensaje
+    } else {
+      // Cuando todos los mensajes se hayan mostrado, mostrar la pregunta final
+      setTimeout(() => {
+        displayFinalQuestion();
+      }, 4000); // Retraso adicional antes de la pregunta final
+    }
+  }
+
+  // Iniciar la secuencia de mensajes
+  showText(0);
+}
+
+    function displayFinalQuestion() {
+      const finalGif = document.getElementById('gif-final');
+      finalGif.style.display = 'block';
+
+      document.getElementById('container').innerHTML = "";
+      const finalQuestion = "¿Te gustaría ser mi San Valentín? 💘";
+      const finalQuestionDiv = document.createElement('h1');
+      finalQuestionDiv.textContent = finalQuestion;
+      document.getElementById('container').appendChild(finalQuestionDiv);
+
+      const yesBtn = createButton("Sí", 'yes-btn');
+      const noBtn = createButton("Si pero en rojo", 'no-btn');
+
+      yesBtn.addEventListener('click', () => {
+        hideFinalElements();
+        showConfetti();
+      });
+      noBtn.addEventListener('click', () => {
+        hideFinalElements();
+        showConfetti();
+      });
+
+      document.getElementById('container').appendChild(yesBtn);
+      document.getElementById('container').appendChild(noBtn);
+    }
+
+    // Función para ocultar la pregunta final y los botones
+    function hideFinalElements() {
+      const finalQuestionDiv = document.querySelector('h1');
+      const buttons = document.querySelectorAll('button');
+
+      finalQuestionDiv.style.display = 'none';
+      buttons.forEach(button => button.style.display = 'none');
+    }
+
+    // Mostrar diapositiva final con mensaje y foto de fondo
+    function showConfetti() {
+      // Mostrar el mensaje con la foto de fondo
+      const confettiElement = document.createElement('div');
+      confettiElement.classList.add('confetti-background');
+      confettiElement.innerHTML = "<h1>Te amo infinito mi amor 💖</h1>";
+      document.body.appendChild(confettiElement);
+
+      // Mostrar la imagen de fondo
+      confettiElement.style.display = "flex";
+
+      // Activar el efecto de confeti
+      startConfetti();
+    }
+
+    // Función para iniciar el efecto de confeti
+    function startConfetti() {
+      const canvas = document.getElementById('confetti-canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const confettiPieces = [];
+      const colors = ['#FF79C6', '#4CAF50', '#F66563', '#D72E6E', '#FFFFFF'];
+
+      class Confetti {
+        constructor() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height - canvas.height;
+          this.diameter = Math.random() * 10 + 5;
+          this.color = colors[Math.floor(Math.random() * colors.length)];
+          this.speed = Math.random() * 3 + 2;
+        }
+
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.diameter, 0, Math.PI * 2);
+          ctx.fillStyle = this.color;
+          ctx.fill();
+        }
+
+        update() {
+          this.y += this.speed;
+          if (this.y > canvas.height) {
+            this.y = 0;
+            this.x = Math.random() * canvas.width;
+          }
+        }
+      }
+
+      function animateConfetti() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        confettiPieces.forEach(confetto => {
+          confetto.draw();
+          confetto.update();
+        });
+        requestAnimationFrame(animateConfetti);
+      }
+
+      for (let i = 0; i < 100; i++) {
+        confettiPieces.push(new Confetti());
+      }
+
+      animateConfetti();
+    }
+
+    // Inicializar el juego
+    init();
+  </script>
+</body>
+</html>
