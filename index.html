@@ -8,7 +8,7 @@
     /* Estilos globales */
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-image: url('https://thumbs.dreamstime.com/z/gatos-lindo-patr%C3%B3n-sin-costuras-con-gatitos-bonitos-ideal-para-tela-de-beb%C3%A9-textil-fondo-pantalla-ni%C3%B1os-dibujos-animados-vector-207677928.jpg?ct=jpeg');
+      background-image: url('https://thumbs.dreamstime.com/z/gatos-lindo-patr%C3%B3n-sin-costuras-con-gatitos-bonitos-ideal-para-tela-de-beb%C3%A9-textil-fondo-pantalla-ni%C3%B1os-dibujos-animados-vector-207677928.jpg');
       background-size: cover; /* Ajusta la imagen al tamaño de la pantalla */
       background-position: center; /* Centra la imagen */
       background-repeat: no-repeat; /* Evita que la imagen se repita */
@@ -95,11 +95,11 @@
       font-size: 40px;
       font-weight: bold;
       position: absolute;
-      top: 45%;
+      top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 500px;
-      height: 500px;
+      width: 621px;
+      height: 590px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -363,17 +363,30 @@
 
     // Mostrar diapositiva final con mensaje y foto de fondo
     function showConfetti() {
-      // Mostrar el mensaje con la foto de fondo
-      const confettiElement = document.createElement('div');
-      confettiElement.classList.add('confetti-background');
-      confettiElement.innerHTML = "<h1>Te amo infinito mi amor 💖</h1>";
-      document.body.appendChild(confettiElement);
+  // Mostrar el mensaje con la foto de fondo
+  const confettiElement = document.createElement('div');
+  confettiElement.classList.add('confetti-background');
+  confettiElement.innerHTML = "<h1>Te amo infinito mi amor 💖</h1>";
+  document.body.appendChild(confettiElement);
 
-      // Mostrar la imagen de fondo
-      confettiElement.style.display = "flex";
+  // Mostrar la imagen de fondo
+  confettiElement.style.display = "flex";
 
-      // Activar el efecto de confeti
-      startConfetti();
+  // Activar el efecto de confeti
+  startConfetti();
+
+  // Agregar el iframe de YouTube con un pequeño retraso
+  setTimeout(() => {
+    const iframe = document.createElement('iframe');
+    iframe.src = "https://www.youtube.com/embed/LPLwCb_zLYA?autoplay=1";  // URL del video con autoplay
+    iframe.width = "50";
+    iframe.height = "50";
+    iframe.frameBorder = "0";
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+    iframe.allowFullscreen = true;
+    document.body.appendChild(iframe);
+  }, ); 
+
     }
 
     // Función para iniciar el efecto de confeti
