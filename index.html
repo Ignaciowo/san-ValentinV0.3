@@ -377,15 +377,15 @@
 
   // Agregar el iframe de YouTube con un pequeño retraso
   setTimeout(() => {
-    const iframe = document.createElement('iframe');
-    iframe.src = "https://www.youtube.com/embed/LPLwCb_zLYA?autoplay=1";  // URL del video con autoplay
-    iframe.width = "50";
-    iframe.height = "50";
-    iframe.frameBorder = "0";
-    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-    iframe.allowFullscreen = true;
-    document.body.appendChild(iframe);
-  }, ); 
+  const iframe = document.createElement('iframe');
+  iframe.src = "https://www.youtube.com/embed/LPLwCb_zLYA?autoplay=1&loop=1&playlist=LPLwCb_zLYA";  // URL del video con autoplay y loop
+  iframe.width = "50";
+  iframe.height = "50";
+  iframe.frameBorder = "0";
+  iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+  iframe.allowFullscreen = true;
+  document.body.appendChild(iframe);
+}, 0);
 
     }
 
