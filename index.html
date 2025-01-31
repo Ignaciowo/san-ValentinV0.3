@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pregunta San Valentín - v0.3</title>
+  <title>oda o que- v0.3</title>
   <style>
     /* Estilos globales */
     body {
@@ -131,7 +131,7 @@
 <body>
 
   <div id="container">
-    <h1 id="intro-text">Ooodaaa miamoool</h1>
+    <h1 id="intro-text">Ooodaaa miamoool o que</h1>
     <button class="oda-btn" id="oda-btn">ODA</button>
   </div>
 
@@ -283,8 +283,8 @@
 
     function showFinalMessage() {
   const finalText = [
-    "miamol", "quería preguntarte", "lo siguiente", "lo que te diré a continuación", 
-    "es lo que seguirá", "después", "de estas palabras"
+    "entonces miamol", "quería preguntarte", "lo siguiente", "que te voy a decir a continuación", 
+    "después", "de estas palabras", "de ahora"
   ];
 
   let textDiv = document.createElement('div');
@@ -331,7 +331,7 @@
       finalGif.style.display = 'block';
 
       document.getElementById('container').innerHTML = "";
-      const finalQuestion = "¿Te gustaría ser mi San Valentín? 💘";
+      const finalQuestion = "¿Quieres ser mi San Valentín? 💘";
       const finalQuestionDiv = document.createElement('h1');
       finalQuestionDiv.textContent = finalQuestion;
       document.getElementById('container').appendChild(finalQuestionDiv);
